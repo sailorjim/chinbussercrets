@@ -49,11 +49,12 @@ public class location {
         return isItemhere;
     }
         public item getItem(String itemName){
-            item pickedUpItem;
+            item pickedUpItem = null;
             for (item e:items){
-              pickedUpItem=
-                
-            }
+                if (itemName.equals(e.getName())){
+                    pickedUpItem=e;
+                    }
+            } return pickedUpItem;
 }}
 
 

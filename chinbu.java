@@ -20,11 +20,10 @@ public class chinbu {
              currentLocation=location;
          }
          static void takeItem(String checkItem){
-             boolean itemHere = currentLocation.checkitem(checkItem);
+            boolean itemHere = currentLocation.checkItem(checkItem);
              if(itemHere){
-                 item currentLocation.
-                 inventory.add(areaItem);
-                 currentLocation.removeItem(areaItem);
+                 inventory.add(currentLocation.getItem(checkItem));
+                 currentLocation.removeItem(currentLocation.getItem(checkItem));
                  game.playerInput();
            } else {
                     System.out.println("Item is not here!");

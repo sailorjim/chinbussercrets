@@ -55,7 +55,8 @@ import java.util.Scanner;
         location playerLocation =  chinbu.getLocation();
         
         System.out.println("You are in " +playerLocation.getName()+ ", " +playerLocation.getDescription()+ ".");
-        System.out.println ("There is a "+(playerLocation.getItems()).getName());
+        System.out.println ("There is a "+(playerLocation.getItem()).getName());
+        //get item is doing error bcus i changed it and now it requires string idk how to fix this other thanby making another new method for just gettting items in the area
         playerInput();
     }
         
