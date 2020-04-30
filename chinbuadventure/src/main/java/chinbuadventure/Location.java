@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package chinbuadventure;
 
 import java.util.ArrayList;
 
@@ -61,6 +61,3 @@ public class Location {
         return items;
     }
 }
-
-
-
