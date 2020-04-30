@@ -1,4 +1,4 @@
-package main;
+package chinbuadventure;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * @author Thopte
  */
-public class Index {
+public class Chinbuadventure {
     static String input;
     static Scanner in = new Scanner(System.in);
     static ArrayList<String> inventory = new ArrayList<>();
@@ -16,6 +16,3 @@ public class Index {
         newGame.createNewGame();
     }
 }
-
-
-

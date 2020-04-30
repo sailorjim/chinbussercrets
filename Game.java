@@ -1,4 +1,4 @@
-package main;
+package chinbuadventure;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -106,5 +106,3 @@ public class Game {
         System.out.println("help me mr obama i'm dwoning");
     }
 }
-
-

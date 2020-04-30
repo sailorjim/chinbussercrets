@@ -1,4 +1,4 @@
-package main;
+package chinbuadventure;
 
 import java.io.File;
 import java.util.ArrayList;
