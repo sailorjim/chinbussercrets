@@ -7,12 +7,24 @@ import java.util.ArrayList;
  */
 public class Chinbu {
     static private Location currentLocation;
-    static private final ArrayList<Item> inventory = new ArrayList<>();
+    static public  ArrayList<Item> inventory = new ArrayList<>();
 
     // Set current location of Chinbu.
     static public void setLocation(Location location) {
-        currentLocation = location;
-    }
+            currentLocation = location;
+        }
+        
+   static public void movePlayer(Location location){
+        if (!location.equals(Game.empty)){
+            currentLocation = location;
+        } else {
+            System.out.println("Can't go this way sorry!");
+                Game.playerInput();
+        }
+        }
+        
+   
+    
 
     // Get current location of Chinbu.
     static public Location getLocation() {
@@ -33,9 +45,13 @@ public class Chinbu {
         } else {
             System.out.println("Item is not here!");
         }
-
-        // Game.playerInput();
     }
+    
+    static public void dropItem(Item item){
+        inventory.remove(item);
+    }
+        // Game.playerInput();
+    
 
     // Print the players current inventory.
     static public void openInventory() {
@@ -60,4 +76,5 @@ public class Chinbu {
 
         Game.playerInput();
     }
+
 }

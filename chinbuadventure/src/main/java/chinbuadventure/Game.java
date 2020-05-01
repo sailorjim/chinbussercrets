@@ -8,26 +8,61 @@ import java.util.ArrayList;
  */
 public class Game {
     static Scanner in = new Scanner(System.in);
-
+    public static Location empty= new Location();
+    
     public void createNewGame() {
 
         // Create items
         Item coconut = new Item();
         coconut.setName("coconut");
-        coconut.setDescription("on the floor");
+        coconut.setDescription("on the ground");
+        coconut.setType("food");
 
-        // Create Locations
+        // Create all Locations
+   
         Location bedroom = new Location();
-        bedroom.setName("Your Bedroom");
-        bedroom.setDescription("a small room with a bed");
-        bedroom.addItem(coconut);
+        Location beach= new Location();
+        Location home = new Location();
+        Location shopArea = new Location();
+        Location shop= new Location();
+ 
+        
+        //set location attributes
+        //bedroom
+        bedroom.setName("in your Bedroom");
+        bedroom.setDescription("there is a little snuggle bed in the corner and a door leading outside");
+        bedroom.setSouth(home);
+        
+        //home
+        home.setName("outside your house");
+        home.setDescription("there is a beach stretching from the north to the east. To the south");
+        home.setNorth(beach);
+        home.setBuildings(bedroom);
+        home.setSouth(shopArea);
+       
+      
+        //beach
+        beach.setName("on the beach");
+        beach.setDescription("the sands stretch on for miles east and west of you");
+        beach.addItem(coconut);
+        beach.setSouth(home);
+        
+        //shoparea+shop
+        shopArea.setName("in the town square");
+        shopArea.setDescription("the shops are all abandoned except for the 7-Eleven");
+        shopArea.setBuildings(shop);
+        shopArea.setNorth(home);
+        
+        shop.setName("inside the 7-eleven");
+        shop.setDescription("Santa sits at the counter brushing his teeth");
+        shop.setSouth(shopArea);
 
-        Location woods = new Location();
-        woods.setName("Dark Woods");
-        woods.setDescription("very spooky and scary");
 
         // Create Ocarina
         Ocarina flute = new Ocarina();
+        flute.setName("flute");
+        flute.setDescription("on the table");
+        bedroom.addItem(flute);
 
         // Set initial player location.
         Chinbu.setLocation(bedroom);
@@ -44,7 +79,7 @@ public class Game {
     static void areaIntro() {
         Location playerLocation = Chinbu.getLocation();
 
-        System.out.println("You are in " + playerLocation.getName() + ", " + playerLocation.getDescription() + ".");
+        System.out.println("You are " + playerLocation.getName() + ", " + playerLocation.getDescription() + ".");
 
         if (playerLocation.getItems().size() > 0) {
             for (Item item : playerLocation.getItems()) {
@@ -69,6 +104,15 @@ public class Game {
         }
 
         switch (action) {
+            case "use":
+                for (Item item : Chinbu.inventory){
+                    if (item.getName().equals(actionOption)){
+                        Item.useItem(item);
+                        break;
+                    }
+                    
+                } System.out.println("you can't use that right now");
+                    break;
             case "pickup":
                 if (currentLocationItems.size() == 1) {
                     // If there is only 1 item on the ground, allow just "Pickup".
@@ -93,13 +137,41 @@ public class Game {
                 }
 
                 break;
-            case "open":
+            case "go": 
+                switch (actionOption) {
+                    case "north":
+                        Chinbu.movePlayer(currentLocation.getNorth());
+                        break;
+                    case "east":
+                        Chinbu.movePlayer(currentLocation.getEast());
+                        break;
+                    case "west":
+                        Chinbu.movePlayer(currentLocation.getWest());
+                        break;
+                    case "south":
+                        Chinbu.movePlayer(currentLocation.getSouth());
+                        break;
+                    case "outside":
+                        Chinbu.movePlayer(currentLocation.getSouth());
+                        break;
+                    case "inside":
+                        Chinbu.movePlayer(currentLocation.getBuildings());
+                        break;
+                    default: System.out.println("you can't go that way");
+
+                }
+                    break;
+
             case "inventory":
                 Chinbu.openInventory();
                 break;
             default:
+                System.out.println("Please try enter action again!");
+                
+                        
                 // TODO: Add response if input action is unknown.
         }
+        areaIntro();
     }
 
     public void gameOver() {

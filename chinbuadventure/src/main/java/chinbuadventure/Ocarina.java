@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 /**
  * @author Thopte
  */
-public class Ocarina {
+public class Ocarina extends Item{
     Scanner in = new Scanner(System.in);
     private final ArrayList<String> learnedSongs = new ArrayList<>();
     private String filePath;
