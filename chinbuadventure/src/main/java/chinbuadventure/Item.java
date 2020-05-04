@@ -9,7 +9,6 @@ package chinbuadventure;
  * @author Thopte
  */
 public class Item {
-    private String type;
     private String name;
     private String description;
 
@@ -19,23 +18,26 @@ public class Item {
     public void setDescription(String itemDesc) {
         description = itemDesc;
     }
-    public void setType(String itemType){
-        type = itemType;
-    }
+ 
     public String getName() {
         return name;
     }
     public String getDescription() {
         return description;
     }
-    public static void useItem(Item item){
-        switch (item.type){
-            case "food":
+    static public void useItem(Item item){
+        switch (item.getName()){
+            case "coconut":
                 System.out.println("ate "+item.getName());
                 Chinbu.dropItem(item);
                 break;
+            case "flute":
+                Ocarina.selectSong();
+            case "music book":
+                Ocarina.songList();
         }
         Game.areaIntro();
       
     }
+
 }

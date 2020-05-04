@@ -1,6 +1,7 @@
 package chinbuadventure;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 /**
  * @author Thopte
@@ -56,16 +57,11 @@ public class Chinbu {
     // Print the players current inventory.
     static public void openInventory() {
         if (inventory.size() > 0 ){
-            StringBuilder inventoryResponse = new StringBuilder("");
+            StringJoiner inventoryResponse = new StringJoiner(", ");
 
             for (int i = 0; i < inventory.size(); i++) {
                 Item item = inventory.get(i);
-                inventoryResponse.append(item.getName());
-
-                // Make sure that the string doesn't end with ", "
-                if (i + 1 != inventory.size()){
-                    inventoryResponse.append(", ");
-                }
+                inventoryResponse.add(item.getName());
             }
 
             System.out.println("Player Inventory:");

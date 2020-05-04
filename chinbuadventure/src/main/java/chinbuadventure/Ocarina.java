@@ -12,39 +12,43 @@ import javax.swing.JOptionPane;
  * @author Thopte
  */
 public class Ocarina extends Item{
-    Scanner in = new Scanner(System.in);
-    private final ArrayList<String> learnedSongs = new ArrayList<>();
-    private String filePath;
+    static Scanner in = new Scanner(System.in);
+    static public ArrayList<String> learnedSongs = new ArrayList<>();
+    static private String filePath;
+    
+    static public void songList(){
+           learnedSongs.add("happy");
+           learnedSongs.add("sad");
+            System.out.println("Learned Songs: ");
+            learnedSongs.forEach((s) -> {
+                System.out.println(s);
+        });
+    } 
+    
 
-
-    public void selectSong() {
+    static public void selectSong() {
         boolean songExists = false;
-
+  
         System.out.println("which song would you like to play:");
-        for (String s : learnedSongs) {
-            System.out.print(s);
-        }
-
-        String selectedSong = in.nextLine();
-
-        switch (selectedSong) {
+        String songName = in.nextLine();
+            for (String s : learnedSongs) {
+                if (songName.equals(s)){
+                    songExists = true;
+                } 
+            }
+        if(songExists){
+           switch (songName) {
             case "happy":
-                filePath = "song/beepSong.wav";
-                songExists = true;
-                break;
-            default:
-                break;
-        }
-
-        if (songExists){
-            System.out.println("Now playing: " + selectedSong);
-            playMusic(filePath);
-        } else {
-            System.out.println(selectedSong + " is not a song I know, try again.");
+                songName = "song/beepSong.wav";
+                break;  
+            //add more cases here for song names and their file paths.
+            default: 
+           }
+        playMusic(songName);
         }
     }
 
-    public void playMusic(String filepath) {
+    static public void playMusic(String filepath) {
         try {
             File musicPath = new File(filepath);
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);

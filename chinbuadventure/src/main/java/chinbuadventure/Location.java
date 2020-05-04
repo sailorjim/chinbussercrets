@@ -38,26 +38,20 @@ public class Location {
     public void setBuildings(Location location){
         this.building=location;
     }
-
     public void setIntro(String intro) {
         this.intro = intro;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-
-
     public void setDescription(String areaDescription) {
         description = areaDescription;
     }
-
-
     public void addItem(Item item) {
         items.add(item);
     }
 
+    
     public void removeItem(Item item) {
         items.remove(item);
     }

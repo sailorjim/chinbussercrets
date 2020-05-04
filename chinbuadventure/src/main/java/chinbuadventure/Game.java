@@ -2,6 +2,7 @@ package chinbuadventure;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 /**
  * @author Thopte
@@ -14,9 +15,12 @@ public class Game {
 
         // Create items
         Item coconut = new Item();
+        Item musicBook = new Item();
         coconut.setName("coconut");
         coconut.setDescription("on the ground");
-        coconut.setType("food");
+
+        musicBook.setName("music book");
+
 
         // Create all Locations
    
@@ -25,7 +29,8 @@ public class Game {
         Location home = new Location();
         Location shopArea = new Location();
         Location shop= new Location();
- 
+        Location beach2 = new Location();
+        Location beach3= new Location();
         
         //set location attributes
         //bedroom
@@ -46,7 +51,15 @@ public class Game {
         beach.setDescription("the sands stretch on for miles east and west of you");
         beach.addItem(coconut);
         beach.setSouth(home);
+        beach.setEast(beach2);
         
+        beach2.setName("on the beach");
+        beach2.setDescription("the ocean looks so tempting, but a small guy like you can't swim.");
+        beach2.setWest(beach);
+        beach2.setSouth(beach3);
+        
+        beach3.setName(beach.getName());
+       
         //shoparea+shop
         shopArea.setName("in the town square");
         shopArea.setDescription("the shops are all abandoned except for the 7-Eleven");
@@ -63,6 +76,7 @@ public class Game {
         flute.setName("flute");
         flute.setDescription("on the table");
         bedroom.addItem(flute);
+        bedroom.addItem(musicBook);
 
         // Set initial player location.
         Chinbu.setLocation(bedroom);
@@ -97,12 +111,16 @@ public class Game {
         String input = in.nextLine();
         String[] userInput = input.split(" ");
         String action = userInput[0];
-        String actionOption = "";
-
-        if (userInput.length > 1) {
-            actionOption = userInput[1];
-        }
-
+        String actionOption= "";
+        StringJoiner options = new StringJoiner(" ");
+        
+            if (userInput.length > 1) {
+                for (int i = 1; i < userInput.length; i++){ 
+                options.add(userInput[i]);
+                } 
+                actionOption = options.toString();
+            } 
+    
         switch (action) {
             case "use":
                 for (Item item : Chinbu.inventory){
@@ -130,6 +148,7 @@ public class Game {
                             }
                         }
                     } else {
+                        System.out.println(actionOption);
                         System.out.println("Unknown item name, try again.");
                     }
                 } else {
@@ -172,9 +191,10 @@ public class Game {
                 // TODO: Add response if input action is unknown.
         }
         areaIntro();
-    }
+    } 
 
     public void gameOver() {
         System.out.println("help me mr obama i'm dwoning");
     }
 }
+
