@@ -7,7 +7,7 @@ import java.util.StringJoiner;
  * @author Thopte
  */
 public class Chinbu {
-    static private Location currentLocation;
+    static public Location currentLocation;
     static public  ArrayList<Item> inventory = new ArrayList<>();
 
     // Set current location of Chinbu.
@@ -48,10 +48,16 @@ public class Chinbu {
         }
     }
     
-    static public void dropItem(Item item){
-        inventory.remove(item);
+    static public void dropItem(String dropitem){
+        for (Item item : inventory){
+            if (item.getName().equals(dropitem)){
+                 inventory.remove(item);
+                 currentLocation.addItem(item);
+                 break;
+            }
+        }
     }
-        // Game.playerInput();
+    
     
 
     // Print the players current inventory.
@@ -68,9 +74,13 @@ public class Chinbu {
             System.out.println(inventoryResponse);
         } else {
             System.out.println("Your inventory is empty!");
-        }
-
-        Game.playerInput();
+        } 
     }
+    static public boolean checkItem(String itemName) {
+        if (inventory.stream().anyMatch((item) -> (itemName.equals(item.getName())))) {
+            return true;
+        } 
+        return false;
+    } 
 
 }

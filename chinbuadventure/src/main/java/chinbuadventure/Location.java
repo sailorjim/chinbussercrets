@@ -20,7 +20,7 @@ public class Location {
     private Location w = Game.empty;
     private Location s = Game.empty;
     private Location building;
-
+    private npc people;
 
     //set variables
     public void setNorth(Location location) {
@@ -50,19 +50,17 @@ public class Location {
     public void addItem(Item item) {
         items.add(item);
     }
-
+    public void addnpc(npc npc){
+        people = npc;
+    }
     
     public void removeItem(Item item) {
         items.remove(item);
     }
 
     public boolean checkItem(String itemName) {
-        for (Item item : items) {
-            if (itemName.equals(item.getName())) {
-                return true;
-            }
-        }
-        return false;
+        if (items.stream().anyMatch((item) -> (itemName.equals(item.getName())))) {
+        } return true;
     }
     
     //get variables
@@ -81,6 +79,14 @@ public class Location {
     public ArrayList<Item> getItems() {
         return items;
     }
+    public Item getItem(String itemName){
+           Item founditem = null;
+        for (Item item : items){
+            if (itemName.equals(item.getName())){
+                founditem = item;
+            } 
+        } return founditem;
+    } 
     public Location getNorth(){
         return n;
     }
@@ -95,5 +101,8 @@ public class Location {
     }
     public Location getBuildings(){
         return building;
+    }
+    public npc getnpc(){
+        return people;
     }
 }

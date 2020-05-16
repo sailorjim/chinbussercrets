@@ -1,6 +1,8 @@
 chinbuadventure\Item.class
+chinbuadventure\npc.class
 chinbuadventure\Game.class
 chinbuadventure\Location.class
-chinbuadventure\Index.class
 chinbuadventure\Chinbu.class
+chinbuadventure\slowPrint.class
+chinbuadventure\Index.class
 chinbuadventure\Ocarina.class
