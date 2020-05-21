@@ -35,7 +35,7 @@ public class Item {
         switch (item.getName()){
             case "coconut":
                 System.out.println("ate "+item.getName());
-                Chinbu.dropItem(item.getName());
+
                 break;
             case "flute":
                 Ocarina.selectSong();
@@ -44,9 +44,9 @@ public class Item {
                 Ocarina.songList();
                 break;
             case "walking shoes":
-          
+                break;
         }
-        Game.areaIntro();
+
       
     }
 

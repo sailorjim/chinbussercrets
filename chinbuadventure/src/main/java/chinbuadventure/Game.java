@@ -11,10 +11,7 @@ import java.util.Random;
 public class Game {
     static Scanner in = new Scanner(System.in);
     public static Location empty= new Location();
-    
-    public void createNewGame() {
-     //creation
-     
+        
         // Create all items
         Item coconut = new Item();
         Item musicBook = new Item();
@@ -47,6 +44,7 @@ public class Game {
         Location baseMountain = new Location();
         Location mountainTop = new Location();
         Location cave = new Location();
+        Location mountainPath = new Location();
         
         //create all npc
         npc shopKeep = new npc();
@@ -54,6 +52,9 @@ public class Game {
         npc queen = new npc();
         npc princess = new npc();
    
+    public void createNewGame() {
+     //creation
+ 
      //set item attributes
         //flute 
         flute.setName("flute");
@@ -78,7 +79,7 @@ public class Game {
        //home
         home.setName("outside your house");
         home.setDescription("there is a beach stretching from the north to the east. To the south is a path");
-        home.setNorth(beach);
+        home.setNorth(beach4);
         home.setBuildings(bedroom);
         home.setSouth(crossroad);
       
@@ -93,35 +94,36 @@ public class Game {
         beachs[new Random().nextInt(beachs.length)].addItem(coconut);
         
         beach.setName("on the beach");
-        beach.setDescription("the sands stretch on for miles east and west of you");
-        beach.setSouth(home);
+        beach.setDescription("the sands stretch on for miles east of you");
         beach.setEast(beach2);
-        beach.setWest(beach3);
+
         
         beach2.setName("on the beach");
         beach2.setDescription("the ocean looks so tempting, but a small guy like you can't swim.");
         beach2.setWest(beach);   
-        beach2.setEast(beach5);
+        beach2.setEast(beach3);
 
         beach3.setName(beach.getName());
-        beach3.setDescription(beach.getDescription());
-        beach3.setEast(beach2);
-        beach3.setWest(beach4);
+        beach3.setDescription("the sands stretch on for miles east and west of you");
+        beach3.setEast(beach4);
+        beach3.setWest(beach3);
         
-        beach4.setName(beach.getName());
-        beach4.setDescription(beach.getDescription());
-        beach4.setEast(beach3);
+        beach4.setName("on a beach");
+        beach4.setDescription("the ocean looks so tempting, but a small guy like you can't swim.");
+        beach4.setEast(beach5);
+        beach4.setWest(beach3);
+        beach4.setSouth(home);
         
         beach5.setName(beach.getName());
         beach5.setDescription(beach2.getDescription());
-        beach5.setWest(beach2);
+        beach5.setWest(beach4);
        
         //crossroad 
         crossroad.setName("at a red brick path crossroad");
-        crossroad.setDescription("north will take you back home, east leads to mummy's house, west is the Queen's abode and south will take you to the shopping area");
+        crossroad.setDescription("north will take you back home, east leads to mummy's house, west is the happy woods and south will take you to the shopping area");
         crossroad.setNorth(home);
         crossroad.setEast(outsideMum);
-        crossroad.setWest(outsideQueen);
+        crossroad.setWest(woods1);
         crossroad.setSouth(shopArea);
         
         //shoparea+shop
@@ -129,7 +131,7 @@ public class Game {
         shopArea.setDescription("There are spooky woods surround you to the west and south, the shops are all abandoned except for a 7-Eleven");
         shopArea.setBuildings(shop);
         shopArea.setNorth(crossroad);
-        shopArea.setWest(woods1);
+        shopArea.setSouth(outsideQueen);
         
             shop.setName("inside the 7-eleven");
             shop.setDescription("there are all kinds of exciting items and moldy muffinsm lining the shelves.");
@@ -137,16 +139,17 @@ public class Game {
             shop.addnpc(shopKeep);
         
         //woods
-        woods1.setName("in the spooky woods");
-        woods1.setDescription("something");//TODO : add desc
-        woods1.setEast(shopArea);
-        woods1.setNorth(outsideQueen);
+        woods1.setName("in the happy woods");
+        woods1.setDescription("wow so friendly trees, you shouldn't go any further into these woods though. they get scary");//TODO : add desc
+        woods1.setEast(crossroad);
         woods1.setWest(woods2);
         
-        woods2.setName("in the spooky woods");
+        woods2.setName("in the scary  woods");
         woods2.setDescription("the trees are so tall and you are so small.");
         woods2.setEast(woods1);
-        woods2.setSouth(baseMountain);
+        woods2.setSouth(woods2);
+        woods2.setNorth(woods2);
+        woods2.setWest(woods2);
         
         outsideMum.setName("outside mummy's house");
         outsideMum.setDescription("the sweet smell of freshly baked pie wafts through her open door");
@@ -161,12 +164,13 @@ public class Game {
         //queen
         outsideQueen.setName("outside the Queen's cottage");
         outsideQueen.setDescription("");
-        outsideQueen.setEast(crossroad);
-        outsideQueen.setSouth(woods1);
+        outsideQueen.setNorth(shopArea);
         outsideQueen.setBuildings(queenHouse);
+        outsideQueen.setWest(mountainPath);
             queenHouse.setName("inside the queen's house");
             queenHouse.setDescription("there are baby photos of the princess on the walls, she used to be so happy...");
             queenHouse.addnpc(queen);
+            queenHouse.setSouth(outsideQueen);
         
         baseMountain.setName("at the bottom of the mountain");
         baseMountain.setDescription("you can see dark clouds forming at it's peak");
@@ -191,20 +195,20 @@ public class Game {
         mummy.setName("mummy");
         mummy.setDescription("MUMY HOUSE");
         mummy.setItem(cookie);
+        mummy.setLocation(mumHouse);
+        mummy.setItem(musicBook);
+        
+        queen.setName("mrs queen");
+        queen.setDescription("is sat on her hay stack throne");
         
         // Set initial player location.
         Chinbu.setLocation(bedroom);
 
-        // Start game.
-        System.out.println("hewwo Chimbu ur finally awake ! we're in a big danger. the princes climbed the mountains and won't stop crying and now the town is gonna drown. Will you wake up and save the town?");
-        String input = in.nextLine();
-        if (!input.equals("yes")) {
-            gameOver();
-        }
+ 
         areaIntro();
     }
 
-    static void areaIntro() {
+     void areaIntro() {
         Location playerLocation = Chinbu.getLocation();
 
         System.out.println("You are " + playerLocation.getName() + ", " + playerLocation.getDescription() + ".");
@@ -224,7 +228,7 @@ public class Game {
         playerInput();
     }
 
-    static void playerInput() {
+     void playerInput() {
          Location currentLocation = Chinbu.getLocation();
         ArrayList<Item> currentLocationItems = currentLocation.getItems();
 
@@ -244,10 +248,16 @@ public class Game {
         switch (action) {
             case "hello":
                 if (actionOption.equals((currentLocation.getnpc()).getName())){
-                    (currentLocation.getnpc()).convo();
+                    switch (actionOption){
+                        case "Santa":
+                            shopman();
+                            break;
+                        case "mummy":
+                            mummy();
+                            break;
+                    }
                 } else {
                     System.out.println("I'm sorry please check your name spelling and try again");
-                    playerInput();
                 }
                 break;
             case "help":
@@ -258,35 +268,32 @@ public class Game {
                     if (item.getName().equals(actionOption)){
                         Item.useItem(item);
                         break;
+                    } else {
+                        System.out.println("you can't use that right now");
+                        break;
                     }
-                    
-                } System.out.println("you can't use that right now");
-                    break;
+                }
+                break;
+                
             case "pickup":
                 if (currentLocationItems.size() == 1) {
                     // If there is only 1 item on the ground, allow just "Pickup".
                     Item item = currentLocationItems.get(0);
-                    Chinbu.takeItem(item.getName());
-                    System.out.println(item.getName() + " picked up.");
+                    Chinbu.takeItem(item);
                 } else if (!actionOption.equals("")) {
                     // If user has entered an item name, and item exists in location, pick it up.
                     if (currentLocation.checkItem(actionOption)){
-                        for (Item item : currentLocationItems){
-                            if (item.getName().equals(actionOption)){
-                                Chinbu.takeItem(item.getName());
-                                System.out.println(item.getName() + " picked up.");
+                                Chinbu.takeItem(currentLocation.getItem(actionOption));
                                 break;
-                            }
-                        }
-                    } else {
-                        System.out.println(actionOption);
+                            } else {
                         System.out.println("Unknown item name, try again.");
+                        break;
                     }
                 } else {
                     System.out.println("Please enter the name of the item you want to pickup.");
                 }
-
                 break;
+                
             case "go": 
                 switch (actionOption) {
                     case "north":
@@ -308,7 +315,6 @@ public class Game {
                         Chinbu.movePlayer(currentLocation.getBuildings());
                         break;
                     default: System.out.println("you can't go that way");
-
                 }
                     break;
 
@@ -316,7 +322,7 @@ public class Game {
                 Chinbu.openInventory();
                 break;
  
-
+            default: areaIntro();
         }
         areaIntro();
     } 
@@ -332,7 +338,73 @@ public class Game {
                 System.out.println("go (inside/outside) = enter or leave a building");
                 System.out.println("use (item) = use an item");
                 System.out.println("hello (name) = talk to them!");
-                playerInput();
+             
     }
+    
+    
+        public void shopman(){
+         String userin;
+        System.out.println("I've got a lot of yummy items for sale. Would you like to have a look? ----- buy/sell/exit--");
+            userin = in.nextLine();
+        
+        switch (userin) {
+            case "buy":
+                System.out.println("Take a Look");
+                shopKeep.inventory.forEach((i) -> {
+                    System.out.println(i.getName());
+                });
+                String buyItem = in.nextLine();
+                if (shopKeep.inventory.stream().anyMatch((item)  -> (item.getName().equals(buyItem)))){
+                    switch (buyItem){
+                        case "walking shoes":
+                         System.out.println("A good choice, that will cost $1,000,000");
+            
+                             if (Chinbu.inventory.stream().anyMatch((item) -> (item.equals(cookie)))){
+                                System.out.println("However, I can see you have some of your Mummy's Special Coconut Cookies, I'll gladly make this trade --- yes/no");
+                                userin = in.nextLine();
+                                if (userin.equals("yes")){
+                                    shopKeep.dropItem(walkingShoes);
+                                    Chinbu.takeItem(walkingShoes);
+                                    Chinbu.dropItem(cookie);
+                                    shopKeep.addInventory(cookie);
+                                    break;
+                            } else {
+                                break;
+                                }
+                             } else {
+                                 System.out.println("....But since you are a small baby. I would gladly give them to you, in return for some of your mummy's special coconut cookies");
+                                 break;
+                             } 
+                    default: System.out.println("I don't have that!");
+                    } 
+                }
+             case "exit":
+                 break;
+        }   
+        }
+    public void mummy(){
+        String userin;
+        System.out.println("hello little chinbu,");
+        if (mummy.inventory.stream().anyMatch(item -> item.equals(musicBook))){
+            System.out.println("I found your music book the other day while I was cleaning! Here you go.");
+            mummy.dropItem(musicBook);
+        } else if (Chinbu.inventory.stream().anyMatch(item -> item.equals(coconut))){
+            System.out.println("oh sweet boy can i have those coconuts to make some yummy cookies?");
+            System.out.println("----y/n----");
+            userin = in.nextLine();
+                if ((userin.equals("y"))||(userin.equals("yes"))){
+                     Chinbu.dropItem(coconut);
+                     mummy.addInventory(coconut);
+                     mummy.dropItem(cookie);
+                } else if ((userin.equals("n"))||(userin.equals("no"))){
+                    System.out.println("oh okay.......  maybe some other time.");
+                } else {
+                    System.out.println("ah.... bye bye then");
+                }
+        } else {
+            System.out.println("I want to make some cookies but i'm all out of coconuts");
+    }
+    }
+    
 }
 
